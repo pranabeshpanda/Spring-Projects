@@ -15,7 +15,7 @@
 	<jsp:include page="header.jsp" />
 	<jsp:include page="menu.jsp" />
 
-	<div class="page-title">MotoCart Shopping Cart</div>
+	<div class="page-title">MotoCart</div>
 
 	<div class="demo-container">
 		<h3>Demo content</h3>

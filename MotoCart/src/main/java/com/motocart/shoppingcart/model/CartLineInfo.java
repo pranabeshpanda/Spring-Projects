@@ -1,7 +1,7 @@
 package com.motocart.shoppingcart.model;
-
+ 
 public class CartLineInfo {
-	 
+ 
     private ProductInfo productInfo;
     private int quantity;
  
@@ -26,7 +26,7 @@ public class CartLineInfo {
     }
  
     public double getAmount() {
-        return this.productInfo.getProductPrice() * this.quantity;
+        return this.productInfo.getPrice() * this.quantity;
     }
     
 }

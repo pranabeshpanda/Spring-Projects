@@ -1,72 +1,73 @@
 package com.motocart.shoppingcart.model;
+ 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.motocart.shoppingcart.entity.Product;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
  
 public class ProductInfo {
-    private String productCode;
-    private String productName;
-    private double productPrice;
+    private String code;
+    private String name;
+    private double price;
  
-    private boolean isNewProduct=false;
+    private boolean newProduct=false;
  
     // Upload file.
-    private CommonsMultipartFile productFileData;
+    private CommonsMultipartFile fileData;
  
     public ProductInfo() {
     }
  
     public ProductInfo(Product product) {
-        this.productCode = product.getProductCode();
-        this.productName = product.getProductName();
-        this.productPrice = product.getProductPrice();
-    }
-  
-
-    public ProductInfo(String productCode, String productName, double productPrice) {
-        this.productCode = productCode;
-        this.productName = productName;
-        this.productPrice = productPrice;
+        this.code = product.getCode();
+        this.name = product.getName();
+        this.price = product.getPrice();
     }
  
-    public String getProductCode() {
-        return productCode;
+   
+    public ProductInfo(String code, String name, double price) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
     }
  
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public String getCode() {
+        return code;
     }
  
-    public String getProductName() {
-        return productName;
+    public void setCode(String code) {
+        this.code = code;
     }
  
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getName() {
+        return name;
     }
  
-    public double getProductPrice() {
-        return productPrice;
+    public void setName(String name) {
+        this.name = name;
     }
  
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public double getPrice() {
+        return price;
     }
  
-    public CommonsMultipartFile getProductFileData() {
-        return productFileData;
+    public void setPrice(double price) {
+        this.price = price;
     }
  
-    public void setProductFileData(CommonsMultipartFile productFileData) {
-        this.productFileData = productFileData;
+    public CommonsMultipartFile getFileData() {
+        return fileData;
+    }
+ 
+    public void setFileData(CommonsMultipartFile fileData) {
+        this.fileData = fileData;
     }
  
     public boolean isNewProduct() {
-        return isNewProduct;
+        return newProduct;
     }
  
-    public void setIsNewProduct(boolean isNewProduct) {
-        this.isNewProduct = isNewProduct;
+    public void setNewProduct(boolean newProduct) {
+        this.newProduct = newProduct;
     }
  
 }

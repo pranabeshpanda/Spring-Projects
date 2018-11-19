@@ -7,12 +7,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.motocart.shoppingcart.dao.ProductDAO;
 import com.motocart.shoppingcart.entity.Product;
 import com.motocart.shoppingcart.model.PaginationResult;
 import com.motocart.shoppingcart.model.ProductInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 // Transactional for Hibernate
 @Transactional
@@ -21,7 +22,6 @@ public class ProductDAOImpl implements ProductDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Override
 	public Product findProduct(String code) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria crit = session.createCriteria(Product.class);
@@ -29,18 +29,16 @@ public class ProductDAOImpl implements ProductDAO {
 		return (Product) crit.uniqueResult();
 	}
 
-	@Override
 	public ProductInfo findProductInfo(String code) {
 		Product product = this.findProduct(code);
 		if (product == null) {
 			return null;
 		}
-		return new ProductInfo(product.getProductCode(), product.getProductName(), product.getProductPrice());
+		return new ProductInfo(product.getCode(), product.getName(), product.getPrice());
 	}
 
-	@Override
 	public void save(ProductInfo productInfo) {
-		String code = productInfo.getProductCode();
+		String code = productInfo.getCode();
 
 		Product product = null;
 
@@ -51,26 +49,26 @@ public class ProductDAOImpl implements ProductDAO {
 		if (product == null) {
 			isNew = true;
 			product = new Product();
-			product.setProductCreateDate(new Date());
+			product.setCreateDate(new Date());
 		}
-		product.setProductCode(code);
-		product.setProductName(productInfo.getProductName());
-		product.setProductPrice(productInfo.getProductPrice());
+		product.setCode(code);
+		product.setName(productInfo.getName());
+		product.setPrice(productInfo.getPrice());
 
-		if (productInfo.getProductFileData() != null) {
-			byte[] image = productInfo.getProductFileData().getBytes();
+		if (productInfo.getFileData() != null) {
+			byte[] image = productInfo.getFileData().getBytes();
 			if (image != null && image.length > 0) {
-				product.setProductImage(image);
+				product.setImage(image);
 			}
 		}
 		if (isNew) {
 			this.sessionFactory.getCurrentSession().persist(product);
 		}
 		// If error in DB, Exceptions will be thrown out immediately
+
 		this.sessionFactory.getCurrentSession().flush();
 	}
 
-	@Override
 	public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage,
 			String likeName) {
 		String sql = "Select new " + ProductInfo.class.getName() //
@@ -90,7 +88,6 @@ public class ProductDAOImpl implements ProductDAO {
 		return new PaginationResult<ProductInfo>(query, page, maxResult, maxNavigationPage);
 	}
 
-	@Override
 	public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage) {
 		return queryProducts(page, maxResult, maxNavigationPage, null);
 	}

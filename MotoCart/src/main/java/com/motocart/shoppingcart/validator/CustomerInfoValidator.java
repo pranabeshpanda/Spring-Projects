@@ -1,11 +1,12 @@
 package com.motocart.shoppingcart.validator;
-
+ 
 import org.apache.commons.validator.routines.EmailValidator;
-import com.motocart.shoppingcart.model.CustomerInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import com.motocart.shoppingcart.model.CustomerInfo;
  
 // @Component: As a Bean.
 @Component
@@ -15,8 +16,8 @@ public class CustomerInfoValidator implements Validator {
  
     // This Validator support CustomerInfo class.
     @Override
-    public boolean supports(Class<?> supportClass) {
-        return supportClass == CustomerInfo.class;
+    public boolean supports(Class<?> clazz) {
+        return clazz == CustomerInfo.class;
     }
  
     @Override
